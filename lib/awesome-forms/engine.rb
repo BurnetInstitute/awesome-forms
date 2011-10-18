@@ -1,0 +1,4 @@
+module AwesomeForms
+  class Engine < Rails::Engine
+  end
+end
