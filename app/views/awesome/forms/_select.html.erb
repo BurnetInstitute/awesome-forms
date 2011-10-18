@@ -1,0 +1,16 @@
+<div class="clearfix<%= errors.blank? ? '' : ' error' %>">
+	<%= label %>
+	<div class="input">
+		<%= field %>
+		<% if help && errors.blank? %>
+		<span class="help-inline">
+			<%= help %>
+		</span>
+		<% end %>
+		<% unless errors.blank? %>
+		<span class="help-inline">
+			<%= errors %>
+		</span>
+		<% end %>
+	</div>
+</div>
