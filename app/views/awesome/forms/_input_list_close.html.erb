@@ -1,0 +1,13 @@
+		</ul>
+		<% if help && errors.blank? %>
+		<span class="help-block">
+			<%= help %>
+		</span>
+		<% end %>
+		<% unless errors.blank? %>
+		<span class="help-block">
+			<%= errors %>
+		</span>
+		<% end %>
+	</div>
+</div>
