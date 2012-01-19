@@ -85,7 +85,7 @@ module AwesomeForms
 			
 			content ||= method.humanize
 			
-			sub_label = I18n.t("awesome.labels.forms.#{@object_name}.#{method}", default: '').presence
+			sub_label = I18n.t("awesome.forms.labels.#{@object_name}.#{method}", default: '').presence
 			unless sub_label.blank?
 				content += @template.render partial: "awesome/forms/sub_label", locals: {sub_label: sub_label}
 				content = content.html_safe
