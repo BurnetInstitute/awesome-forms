@@ -24,6 +24,12 @@ module AwesomeForms
 					return super
 				end
 				
+				if options_label.present?
+					options_label << { class: "control-label" }
+				else
+					options_label = { class: "control-label" }
+				end
+				
 				# Recreate the argument list with the possibly modified options hash
 				field_args = Array[options] if args.blank?
 				field_args = args if args.present?
