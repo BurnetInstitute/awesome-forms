@@ -192,8 +192,8 @@ module AwesomeForms
 			object && hide_errors.blank? && object.errors[field] ? object.errors[field].join(@template.tag(:br)).html_safe : ''
 		end
 
-		def cancel_button
-			@template.render partial: 'awesome/forms/cancel_button'
+		def cancel_button(redirect)
+			@template.render partial: 'awesome/forms/cancel_button', locals: { redirect: redirect }
 		end
 
 		def link_to_remove_fields(name)
