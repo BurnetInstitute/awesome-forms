@@ -43,7 +43,11 @@ module AwesomeForms
 					end
 				end
 
-				label = label field, nil, options_label
+				unless options_label[:none]
+					label = label field, nil, options_label
+				else
+					label = nil
+				end
 
 				# Popovers
 				popover = nil
