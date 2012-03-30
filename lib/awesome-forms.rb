@@ -43,7 +43,7 @@ module AwesomeForms
 					end
 				end
 
-				unless options_label[:none]
+				unless option_labels and options_label[:none]
 					label = label field, nil, options_label
 				else
 					label = nil
