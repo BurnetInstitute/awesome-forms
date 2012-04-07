@@ -37,9 +37,9 @@ module AwesomeForms
 				# Check box fields nested inside label
 				if __method__ == :check_box
 					if options_label.present?
-						options_label << { before: field_html + '<span>'.html_safe, after: '</span>' }
+						options_label << { class: 'checkbox', before: field_html }
 					else
-						options_label = { before: field_html + '<span>'.html_safe, after: '</span>' }
+						options_label = { class: 'checkbox', before: field_html }
 					end
 				end
 
@@ -112,7 +112,7 @@ module AwesomeForms
 				options = {}
 			end
 
-			options[:class] = 'control-label' # For twitter bootstrap.
+			options[:class] = 'control-label' unless options[:class]# For twitter bootstrap.
 
 			option_rails = options.delete :rails
 			option_value = options.delete :value
