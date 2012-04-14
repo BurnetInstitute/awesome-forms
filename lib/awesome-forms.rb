@@ -64,8 +64,6 @@ module AwesomeForms
 			end
 		end
 
-
-
 		class_eval do
 			alias_method :super_collection_select, :collection_select
 		end
@@ -200,16 +198,17 @@ module AwesomeForms
 			@template.render partial: 'awesome/forms/cancel_button', locals: { redirect: redirect }
 		end
 
-		def link_to_remove_fields(name)
-			self.hidden_field(:_destroy) + @template.link_to_function(name, "awesome_forms_remove_fields(this)")
+		def link_to_remove_fields(name, options = {})
+			self.hidden_field(:_destroy) + @template.link_to_function(name, "awesome_forms_remove_fields(this)", options)
 		end
 
-		def link_to_add_fields(name, association, association_object, partial)
+		def link_to_add_fields(name, association, association_object, partial, options = {})
 			fields = self.fields_for association, association_object, child_index: "new_#{association}" do |form|
 				@template.render partial: partial, object: form
 			end
-			name = '<div class="awesome-forms-group">' + name + '</div>'
-			@template.link_to_function name.html_safe, "awesome_forms_add_fields(this, \"#{association}\", \"#{@template.escape_javascript(fields)}\")"
+			link = @template.link_to_function name.html_safe, "awesome_forms_add_fields(this, \"#{association}\", \"#{@template.escape_javascript(fields)}\")", options
+			link = '<div class="awesome-forms-group">' + link + '</div>'
+			link.html_safe
 		end
 	end
 end
