@@ -6,7 +6,7 @@ module AwesomeForms
 	class AwesomeFormBuilder < ActionView::Helpers::FormBuilder
 
 		basic_helpers = [:text_field, :password_field, :email_field, :text_area, :select, :check_box]
-		#multipart_helpers = %w{date_select datetime_select}
+		# Custom helpers: collection_select, image_upload
 
 		basic_helpers.each do |name|
 			# Alias old method
@@ -19,7 +19,6 @@ module AwesomeForms
 				option_rails = options.delete :rails
 				options_label = options.delete :label
 				option_hide_errors = options.delete :hide_errors
-				option_help = options.delete :help
 				unless option_rails.blank? # If rails is passed as option use the rails default rails form method
 					return super
 				end
@@ -44,23 +43,33 @@ module AwesomeForms
 				end
 
 				if options_label and options_label[:none]
-					label = nil
+					label = ''
 				else
 					label = label field, nil, options_label
 				end
 
+				# Help text
+				help = I18n.t("awesome.forms.help.#{@object_name}.#{field}", default: '')
+
 				# Popovers
-				popover = nil
+				popover = ''
 				popover_data_original_title = I18n.t("awesome.forms.popovers.#{@object_name}.#{field}.title", default: I18n.t("activerecord.attributes.#{@object_name}.#{field}")).presence
 				popover_data_content = I18n.t("awesome.forms.popovers.#{@object_name}.#{field}.content", default: '').presence
 				unless popover_data_content.blank?
-					popover = "rel=\"popover\" data-original-title=\"#{popover_data_original_title}\" data-content=\"#{popover_data_content}\"".html_safe
+					popover = "rel=\"popover\" data-original-title=\"#{popover_data_original_title}\" data-content=\"#{popover_data_content}\""
 				end
 
 				errors = get_errors @object, field, option_hide_errors
 
 				partial = __method__
-				@template.render partial: "awesome/forms/#{partial}", locals: {label: label, popover: popover, field: field_html, errors: errors, help: option_help}
+				@template.render partial: "awesome/forms/#{partial}", locals:
+					{
+						label: label.to_s.html_safe,
+						popover: popover.to_s.html_safe,
+						field: field_html.to_s.html_safe,
+						errors: errors.to_s.html_safe,
+						help: help.to_s.html_safe
+					}
 			end
 		end
 
@@ -73,7 +82,6 @@ module AwesomeForms
 			option_rails = options.delete :rails
 			options_label = options.delete :label
 			option_hide_errors = options.delete :hide_errors
-			option_help = options.delete :help
 			unless option_rails.blank? # If rails is passed as option use the rails default rails form method
 				return super field, collection, value_method, text_method, collection_select_options, html_options
 			end
@@ -90,18 +98,75 @@ module AwesomeForms
 
 			label = label field, nil, options_label
 
+			# Help text
+			help = I18n.t("awesome.forms.help.#{@object_name}.#{field}", default: '').presence
+
 			# Popovers
 			popover = nil
 			popover_data_original_title = I18n.t("awesome.forms.popovers.#{@object_name}.#{field}.title", default: I18n.t("activerecord.attributes.#{@object_name}.#{field}")).presence
 			popover_data_content = I18n.t("awesome.forms.popovers.#{@object_name}.#{field}.content", default: '').presence
 			unless popover_data_content.blank?
-				popover = "rel=\"popover\" data-original-title=\"#{popover_data_original_title}\" data-content=\"#{popover_data_content}\"".html_safe
+				popover = "rel=\"popover\" data-original-title=\"#{popover_data_original_title}\" data-content=\"#{popover_data_content}\""
 			end
 
 			errors = get_errors @object, field, option_hide_errors
 
 			partial = __method__
-			@template.render partial: "awesome/forms/#{partial}", locals: {label: label, popover: popover, field: field_html, errors: errors, help: option_help}
+			@template.render partial: "awesome/forms/#{partial}", locals:
+				{
+					label: label.to_s.html_safe,
+					popover: popover.to_s.html_safe,
+					field: field_html.to_s.html_safe,
+					errors: errors.to_s.html_safe,
+					help: help.to_s.html_safe
+				}
+		end
+
+		def image_upload (field, version = :thumbnail, *args)
+			options = args.last.is_a?(Hash) ? args.pop : {} # Grab the options hash
+			options_label = options.delete :label
+			option_hide_errors = options.delete :hide_errors
+			option_help = options.delete :help
+
+			# Recreate the argument list with the possibly modified options hash
+			field_args = Array[options] if args.blank?
+			field_args = args if args.present?
+			if args and options
+				field_args = args
+				field_args << options
+			end
+
+			image = @template.image_tag @object.send(field).send(version).url
+
+			label = label field, nil, options_label
+
+			field_html = file_field field, *field_args
+			hidden_field_html = hidden_field "#{field}_cache"
+
+			# Help text
+			help = I18n.t("awesome.forms.help.#{@object_name}.#{field}", default: '').presence
+
+			# Popovers
+			popover = nil
+			popover_data_original_title = I18n.t("awesome.forms.popovers.#{@object_name}.#{field}.title", default: I18n.t("activerecord.attributes.#{@object_name}.#{field}")).presence
+			popover_data_content = I18n.t("awesome.forms.popovers.#{@object_name}.#{field}.content", default: '').presence
+			unless popover_data_content.blank?
+				popover = "rel=\"popover\" data-original-title=\"#{popover_data_original_title}\" data-content=\"#{popover_data_content}\""
+			end
+
+			errors = get_errors @object, field, option_hide_errors
+
+			partial = __method__
+			@template.render partial: "awesome/forms/#{partial}", locals:
+				{
+					label: label.to_s.html_safe,
+					popover: popover.to_s.html_safe,
+					image: image.to_s.html_safe,
+					field: field_html.to_s.html_safe,
+					hidden_field: hidden_field_html.to_s.html_safe,
+					errors: errors.to_s.html_safe,
+					help: help.to_s.html_safe
+				}
 		end
 
 		alias_method :super_label, :label
@@ -117,9 +182,6 @@ module AwesomeForms
 			option_plain = options.delete :plain
 			option_before = options.delete :before
 			option_after = options.delete :after
-
-			option_before ||= ''
-			option_after ||= ''
 
 			unless option_rails.blank? # If rails is passed as option use the rails default rails label method
 				return super
@@ -141,18 +203,18 @@ module AwesomeForms
 
 			content ||= method.humanize
 
-			# Help text
+			# Sub label text
 			sub_label = I18n.t("awesome.forms.labels.#{@object_name}.#{method}", default: '').presence
 			unless sub_label.blank?
-				content += @template.render partial: 'awesome/forms/sub_label', locals: {sub_label: sub_label}
-				content = content.html_safe
+				content += @template.render partial: 'awesome/forms/sub_label', locals: {sub_label: sub_label.to_s.html_safe}
+				content = content
 			end
 
 			if option_plain == true
 				return content.html_safe
 			else
 				super do
-					content = option_before.html_safe + content.html_safe + option_after.html_safe
+					content = option_before.to_s.html_safe + content.to_s.html_safe + option_after.to_s.html_safe
 				end
 			end
 		end
@@ -165,16 +227,17 @@ module AwesomeForms
 				errors = nil
 				label = nil
 			end
-			@template.render partial: 'awesome/forms/input_list_open', locals: {label: label, errors: errors}
+			@template.render partial: 'awesome/forms/input_list_open', locals: {label: label.to_s.html_safe, errors: errors.to_s.html_safe}
 		end
 
+		# TODO: Use i18n for help of input list
 		def input_list_close(field = nil, help = nil)
 			unless field.blank?
 				errors = get_errors @object, field
 			else
 				errors = nil
 			end
-			@template.render partial: 'awesome/forms/input_list_close', locals: {errors: errors, help: help}
+			@template.render partial: 'awesome/forms/input_list_close', locals: {errors: errors.to_s.html_safe, help: help.to_s.html_safe}
 		end
 
 		def error
@@ -186,7 +249,7 @@ module AwesomeForms
 		def sub_error(field)
 			errors = get_errors(@object, field)
 			unless errors.blank?
-				@template.render partial: 'awesome/forms/sub_error', locals: { errors: errors }
+				@template.render partial: 'awesome/forms/sub_error', locals: { errors: errors.to_s.html_safe }
 			end
 		end
 
@@ -199,11 +262,11 @@ module AwesomeForms
 		end
 
 		def link_to_remove_fields(name, options = {})
-			self.hidden_field(:_destroy) + @template.link_to_function(name, "awesome_forms_remove_fields(this)", options)
+			hidden_field(:_destroy) + @template.link_to_function(name, "awesome_forms_remove_fields(this)", options)
 		end
 
 		def link_to_add_fields(name, association, association_object, partial, options = {})
-			fields = self.fields_for association, association_object, child_index: "new_#{association}" do |form|
+			fields = fields_for association, association_object, child_index: "new_#{association}" do |form|
 				@template.render partial: partial, object: form
 			end
 			link = @template.link_to_function name.html_safe, "awesome_forms_add_fields(this, \"#{association}\", \"#{@template.escape_javascript(fields)}\")", options
