@@ -1,7 +1,11 @@
 <div class="control-group<%= errors.blank? ? '' : ' error' %>"<%= popover.blank? ? '' :  popover %>>
-	<%= label%>
+	<p class="controls">
+		<%= image %>
+	</p>
+	<%= label %>
 	<div class="controls">
 		<%= field %>
+		<%= hidden_field %>
 		<% if errors %>
 			<span class="help-inline">
 				<%= errors %>

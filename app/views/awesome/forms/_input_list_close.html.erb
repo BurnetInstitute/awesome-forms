@@ -1,12 +1,12 @@
-		<% if help && errors.blank? %>
-		<span class="help-block">
-			<%= help %>
-		</span>
+		<% if errors %>
+			<span class="help-inline">
+				<%= errors %>
+			</span>
 		<% end %>
-		<% unless errors.blank? %>
-		<span class="help-block">
-			<%= errors %>
-		</span>
+		<% if help %>
+			<span class="help-block">
+				<%= help %>
+			</span>
 		<% end %>
 	</div>
 </div>
