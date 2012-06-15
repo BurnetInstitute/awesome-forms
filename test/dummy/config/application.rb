@@ -5,6 +5,8 @@ require 'rails/all'
 Bundler.require
 require "awesome-forms"
 
+require "jquery-rails" # this should be auto-included with the Bundler.require :default, Rails.env, but it's not happening
+
 module Dummy
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.

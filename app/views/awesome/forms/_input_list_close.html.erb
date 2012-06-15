@@ -1,12 +1,12 @@
-		<% if errors %>
-			<span class="help-inline">
-				<%= errors %>
-			</span>
-		<% end %>
-		<% if help %>
-			<span class="help-block">
-				<%= help %>
-			</span>
-		<% end %>
-	</div>
+    <% if errors.present? %>
+      <span class="help-inline">
+        <%= errors %>
+      </span>
+    <% end %>
+    <% if help.present? %>
+      <span class="help-block">
+        <%= help %>
+      </span>
+    <% end %>
+  </div>
 </div>

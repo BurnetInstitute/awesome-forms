@@ -2,4 +2,31 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
-  hello: "Hello world"
+  activerecord:
+    attributes:
+      person:
+        name: 'Name (i18n)'
+    errors:
+      messages:
+        blank: 'Please enter in a %{attribute}. (i18n)'
+      models:
+        person:
+          check_boxes_error:
+            invalid: 'Custom validation error for group of text boxes. (i18n)'
+          radio_buttons_error:
+            invalid: 'Custom validation error for group of radio buttons. (i18n)'
+          attributes:
+              name:
+                blank: 'Please enter in a name. (i18n)'
+    models:
+      person: 'Person'
+  helpers:
+    label:
+      people:
+        name: 'Name (i18n)'
+    cancel:
+      person:
+        new: 'Cancel (i18n, defaults to Cancel)'
+    submit:
+      person:
+        create: 'Add Person (i18n, defaults to rails default)'

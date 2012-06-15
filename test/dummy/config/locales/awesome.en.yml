@@ -1,0 +1,27 @@
+en:
+  awesome:
+    forms:
+      errors:
+        header: "Oops, it looks like there's someting wrong. (Default header: i18n for awesome flash)"
+        body: 'Please correct the fields below before continuing. (Default body: i18n for awesome flash)'
+      help:
+        people:
+          name: 'Help from i18n.'
+      labels:
+        people:
+          name: '(sub-label: i18n, optional)'
+      options:
+        departments:
+          it: 'IT (i18n)'
+          facilities: 'Facilities (i18n)'
+          pac: 'PAC (i18n)'
+          cph: 'CPH (i18n)'
+          admin: 'Admin (i18n)'
+          finance: 'Finance (i18n)'
+      popovers:
+        people:
+          name:
+            title: 'Title: i18n, defaults to label i18n otherwise.'
+            content: 'Content: i18n, if not present no popover is created.'
+    layout:
+      application_title: 'Awesome Forms'
