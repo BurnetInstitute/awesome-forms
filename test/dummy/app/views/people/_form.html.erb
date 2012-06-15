@@ -1,0 +1,268 @@
+<% content_for :jquery do %>
+  $('.[rel=popover]').popover();
+<% end %>
+
+<%= form.error %>
+<ul class="nav nav-tabs" data-tabs="tabs">
+  <li class="active"><a href="#text-field" data-toggle="tab">Text Field</a></li>
+  <li><a href="#password-field" data-toggle="tab">Password Field</a></li>
+  <li><a href="#email-field" data-toggle="tab">Email Field</a></li>
+  <li><a href="#text-area" data-toggle="tab">Text Area</a></li>
+  <li><a href="#select" data-toggle="tab">Select</a></li>
+  <li><a href="#collection-select" data-toggle="tab">Collection Select</a></li>
+  <li><a href="#check-box" data-toggle="tab">Check Box</a></li>
+  <li><a href="#radio-button" data-toggle="tab">Radio Button</a></li>
+</ul>
+
+<div class="tab-content">
+
+  <%# Text Field %>
+  <fieldset class="active tab-pane" id="text-field">
+    <legend>Text Field</legend>
+
+    <div class="control-group">
+      <code>&lt;%= form.text_field :name %&gt;</code>
+    </div>
+    <%= form.text_field :name %>
+
+    <div class="control-group">
+      <code>&lt;%= form.text_field :name, class: 'span4' %&gt;</code>
+    </div>
+    <%= form.text_field :name, class: 'span4' %>
+
+    <div class="control-group">
+      <code>&lt;%= form.text_field :name, label: {none: true} %&gt;</code>
+    </div>
+    <%= form.text_field :name, label: {none: true} %>
+
+    <div class="control-group">
+      <code>&lt;%= form.super_label :name %&gt;</code><br />
+      <code>&lt;%= form.super_text_field :name %&gt;</code>
+    </div>
+    <%= form.super_label :name %>
+    <%= form.super_text_field :name %>
+  </fieldset>
+
+<%# Password Field %>
+  <fieldset class="tab-pane" id="password-field">
+    <legend>Password Field</legend>
+
+    <div class="control-group">
+      <code>&lt;%= form.password_field :password %&gt;</code>
+    </div>
+    <%= form.password_field :password %>
+
+    <div class="control-group">
+      <code>&lt;%= form.password_field :password, class: 'span4' %&gt;</code>
+    </div>
+    <%= form.password_field :password, class: 'span4' %>
+
+    <div class="control-group">
+      <code>&lt;%= form.password_field :password, label: {none: true} %&gt;</code>
+    </div>
+    <%= form.password_field :password, label: {none: true} %>
+
+    <div class="control-group">
+      <code>&lt;%= form.super_label :password %&gt;</code><br />
+      <code>&lt;%= form.super_password_field :password %&gt;</code>
+    </div>
+    <%= form.super_label :password %>
+    <%= form.super_password_field :password %>
+  </fieldset>
+
+  <%# Email Field %>
+  <fieldset class="tab-pane" id="email-field">
+    <legend>Email Field</legend>
+
+    <div class="control-group">
+      <code>&lt;%= form.email_field :email %&gt;</code>
+    </div>
+    <%= form.email_field :email %>
+
+    <div class="control-group">
+      <code>&lt;%= form.email_field :email, class: 'span4' %&gt;</code>
+    </div>
+    <%= form.email_field :email, class: 'span4' %>
+
+    <div class="control-group">
+      <code>&lt;%= form.email_field :email, label: {none: true} %&gt;</code>
+    </div>
+    <%= form.email_field :email, label: {none: true} %>
+
+    <div class="control-group">
+      <code>&lt;%= form.super_label :email %&gt;</code><br />
+      <code>&lt;%= form.super_email_field :email %&gt;</code>
+    </div>
+    <%= form.super_label :email %>
+    <%= form.super_email_field :email %>
+  </fieldset>
+
+  <%# Text Area %>
+  <fieldset class="tab-pane" id="text-area">
+    <legend>Text Area</legend>
+
+    <div class="control-group">
+      <code>&lt;%= form.text_area :bio %&gt;</code>
+    </div>
+    <%= form.text_area :bio %>
+
+    <div class="control-group">
+      <code>&lt;%= form.text_area :bio, class: 'span4' %&gt;</code>
+    </div>
+    <%= form.text_area :bio, {class: 'span4'} %>
+
+    <div class="control-group">
+      <code>&lt;%= form.text_area :bio, label: {none: true} %&gt;</code>
+    </div>
+    <%= form.text_area :bio, label: {none: true} %>
+
+    <div class="control-group">
+      <code>&lt;%= form.text_area :bio, rows: 5 %&gt;</code>
+    </div>
+    <%= form.text_area :bio, rows: 5 %>
+
+    <div class="control-group">
+      <code>&lt;%= form.super_label :bio %&gt;</code><br />
+      <code>&lt;%= form.super_text_area :bio %&gt;</code>
+    </div>
+    <%= form.super_label :bio %>
+    <%= form.super_text_field :bio %>
+  </fieldset>
+
+  <%# Select %>
+  <fieldset class="tab-pane" id="select">
+    <legend>Select</legend>
+
+    <div class="control-group">
+      <code>&lt;%= form.select :title, Person.titles.map {|t| [ t[:title], t[:id] ] } %&gt;</code>
+    </div>
+    <%= form.select :title, Person.titles.map {|t| [ t[:title], t[:id] ] } %>
+
+    <div class="control-group">
+      <code>&lt;%= form.select :title, Person.titles.map {|t| [ t[:title], t[:id] ] }, class: 'span4' %&gt;</code>
+    </div>
+    <%= form.select :title, Person.titles.map {|t| [ t[:title], t[:id] ] }, class: 'span4' %>
+
+    <div class="control-group">
+      <code>&lt;%= form.select :title, Person.titles.map {|t| [ t[:title], t[:id] ] }, label: {none: true} %&gt;</code>
+    </div>
+    <%= form.select :title, Person.titles.map {|t| [ t[:title], t[:id] ] }, label: {none: true} %>
+
+    <div class="control-group">
+      <code>&lt;%= form.select :title, Person.titles.map {|t| [ t[:title], t[:id] ] }, prompt: true %&gt;</code>
+    </div>
+    <%= form.select :title, Person.titles.map {|t| [ t[:title], t[:id] ] }, prompt: true %>
+
+    <div class="control-group">
+      <code>&lt;%= form.super_label :title %&gt;</code><br />
+      <code>&lt;%= form.super_select :title, Person.titles.map {|t| [ t[:title], t[:id] ] } %&gt;</code>
+    </div>
+    <%= form.super_label :title %>
+    <%= form.super_select :title, Person.titles.map {|t| [ t[:title], t[:id] ] } %>
+  </fieldset>
+
+  <%# Collection Select %>
+  <fieldset class="tab-pane" id="collection-select">
+    <legend>Collection Select</legend>
+
+    <div class="control-group">
+      <code>&lt;%= form.collection_select :department_id, Department.all, :id, :name %&gt;</code>
+    </div>
+    <%= form.collection_select :department_id, Department.all, :id, :name %>
+
+    <div class="control-group">
+      <code>&lt;%= form.collection_select :department_id, Department.all, :id, :name, class: 'span4' %&gt;</code>
+    </div>
+    <%= form.collection_select :department_id, Department.all, :id, :name, class: 'span4' %>
+
+    <div class="control-group">
+      <code>&lt;%= form.collection_select :department_id, Department.all, :id, :name, label: {none: true} %&gt;</code>
+    </div>
+    <%= form.collection_select :department_id, Department.all, :id, :name, label: {none: true} %>
+
+    <div class="control-group">
+      <code>&lt;%= form.collection_select :department_id, Department.all, :id, :name, prompt: true %&gt;</code>
+    </div>
+    <%= form.collection_select :department_id, Department.all, :id, :name, prompt: true %>
+
+    <div class="control-group">
+      <code>&lt;%= form.super_label :department_id %&gt;</code><br />
+      <code>&lt;%= form.super_collection_select :department_id, Department.all, :id, :name %&gt;</code>
+    </div>
+    <%= form.super_label :department_id %>
+    <%= form.super_collection_select :department_id, Department.all, :id, :name %>
+  </fieldset>
+
+  <%# Check Box %>
+  <fieldset class="tab-pane" id="check-box">
+    <legend>Check Box</legend>
+
+    <div class="control-group">
+      <code>&lt;%= form.check_box :employee %&gt;</code>
+    </div>
+    <%= form.check_box :employee %>
+
+    <div class="control-group">
+      <code>&lt;%= form.input_list_open %&gt;</code><br />
+      <code>&lt;%= form.check_box :employee %&gt;</code></br />
+      <code>&lt;%= form.input_list_close %&gt;</code>
+    </div>
+    <%= form.input_list_open %>
+    <%= form.check_box :employee %>
+    <%= form.input_list_close %>
+
+    <div class="control-group">
+      <code>&lt;%= form.sub_error :check_boxes_error %&gt;</code><br />
+      <code>&lt;%= form.input_list_open :department, :check_boxes_error %&gt;</code><br />
+      <code>&lt;%= form.collection_check_box :department, Department.all, :name %&gt;</code><br />
+      <code>&lt;%= form.input_list_close %&gt;</code>
+    </div>
+    <%= form.sub_error :check_boxes_error %>
+    <%= form.input_list_open :department, :check_boxes_error %>
+    <%= form.collection_check_box :department, Department.all, :name %>
+    <%= form.input_list_close %>
+
+    <div class="control-group">
+      <code>&lt;%= form.super_label :employee %&gt;</code><br />
+      <code>&lt;%= form.check_box :employee %&gt;</code>
+    </div>
+    <%= form.super_label :employee %>
+    <%= form.super_check_box :employee %>
+  </fieldset>
+
+  <%# Radio Button %>
+  <fieldset class="tab-pane" id="radio-button">
+    <legend>Radio Button</legend>
+
+    <div class="control-group">
+      <code>&lt;%= form.collection_radio_button :department, Department.all, :name %&gt;</code><br />
+    </div>
+    <%= form.collection_radio_button :department, Department.all, :name %>
+
+    <div class="control-group">
+      <code>&lt;%= form.input_list_open %&gt;</code><br />
+      <code>&lt;%= form.collection_radio_button :department, Department.all, :name %&gt;</code><br />
+      <code>&lt;%= form.input_list_close %&gt;</code>
+    </div>
+    <%= form.input_list_open %>
+    <%= form.collection_radio_button :department, Department.all, :name %>
+    <%= form.input_list_close %>
+
+    <div class="control-group">
+      <code>&lt;%= form.sub_error :radio_buttons_error %&gt;</code><br />
+      <code>&lt;%= form.input_list_open :department, :radio_buttons_error %&gt;</code><br />
+      <code>&lt;%= form.collection_radio_button :department, Department.all, :name %&gt;</code><br />
+      <code>&lt;%= form.input_list_close %&gt;</code>
+    </div>
+    <%= form.sub_error :radio_buttons_error %>
+    <%= form.input_list_open :department, :radio_buttons_error %>
+    <%= form.collection_radio_button :department, Department.all, :name %>
+    <%= form.input_list_close %>
+  </fieldset>
+
+</div>
+
+<div class="form-actions">
+  <%= form.submit nil, {class: 'btn-primary'} %>
+  <%= form.cancel_button '#' %>
+</div>

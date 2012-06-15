@@ -1,0 +1,4 @@
+<% content_for :title, 'Example Form' %>
+<%= form_for @person, html: { class: "form-horizontal span9" } do |form| %>
+  <%= render partial: 'form', object: form %>
+<% end %>
