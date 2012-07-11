@@ -6,5 +6,5 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require awesome-layout/twitter/bootstrap
+//= require awesome-bootstrap/twitter-bootstrap/bootstrap.min
 //= require_tree .
