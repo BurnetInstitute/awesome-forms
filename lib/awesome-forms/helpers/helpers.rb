@@ -30,7 +30,8 @@ module AwesomeForms
       # Create popoever from i18n
       def create_popover(object_name, field)
         popover = ''
-        popover_data_original_title = I18n.t("awesome.forms.popovers.#{object_name.tableize}.#{field}.title", default: I18n.t("activerecord.attributes.#{object_name}.#{field}")).presence
+        popover_default_title = I18n.t("activemodel.attributes.#{object_name}.#{field}", default: "activerecord.attributes.#{object_name}.#{field}")
+        popover_data_original_title = I18n.t("awesome.forms.popovers.#{object_name.tableize}.#{field}.title", default: popover_default_title).presence
         popover_data_content = I18n.t("awesome.forms.popovers.#{object_name.tableize}.#{field}.content", default: '').presence
         unless popover_data_content.blank?
             popover = "rel=\"popover\" data-original-title=\"#{popover_data_original_title}\" data-content=\"#{popover_data_content}\""

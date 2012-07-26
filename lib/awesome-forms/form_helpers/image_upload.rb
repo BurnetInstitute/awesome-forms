@@ -13,8 +13,10 @@ module AwesomeForms
         field_args = args
         field_args << options
       end
+      object_class = @object.class.name.constantize
+      asset_base = object_class.new.respond_to?(:asset_base) ? object_class.new.asset_base : nil
 
-      image = @template.image_tag @object.send(field).send(version).url
+      image = @template.image_tag(asset_base.to_s + @object.send(field).send(version).url)
 
       label = label field, nil, options_label
 
