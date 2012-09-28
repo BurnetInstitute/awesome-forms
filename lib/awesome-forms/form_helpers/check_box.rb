@@ -11,6 +11,10 @@ module AwesomeForms
 
       # Field
       field_args = create_field_args args, options
+
+      option_checked_value ||= '1'
+      option_unchecked_value || '0'
+
       field_html = super field, *field_args, option_checked_value, option_unchecked_value
 
       # Check box fields nested inside label
