@@ -23,10 +23,10 @@ module AwesomeForms
           I18n.t("helpers.label.#{@object_name.tableize}.#{method}", :default => '').presence
         end
       else
-        text.to_s
+        content = text.to_s
       end
 
-      content ||= if @object && @object.class.respond_to?(:human_attribute_name)
+      content ||= if @object and @object.class.respond_to?(:human_attribute_name)
         @object.class.human_attribute_name method
       end
 

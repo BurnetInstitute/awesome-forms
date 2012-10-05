@@ -30,7 +30,7 @@ module AwesomeForms
         partial = __method__
         @template.render partial: "awesome/forms/#{partial}", locals:
         {
-          label: create_label(field, options_label).to_s.html_safe,
+          label: create_label(field, nil, options_label).to_s.html_safe,
           popover: create_popover(@object_name, field).to_s.html_safe,
           field: field_html.to_s.html_safe,
           errors: get_errors(@object, field, option_hide_errors).to_s.html_safe,
