@@ -14,11 +14,11 @@ module AwesomeForms
       end
 
       # Create the label if options_label doesn't contain :none
-      def create_label(field, options_label)
+      def create_label(field, text = nil, options_label)
         if options_label and options_label[:none]
           label = ''
         else
-          label = label field, nil, options_label
+          label = label field, text, options_label
         end
       end
 

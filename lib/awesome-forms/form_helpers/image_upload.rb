@@ -18,7 +18,7 @@ module AwesomeForms
 
       image = @template.image_tag(asset_base.to_s + @object.send(field).send(version).url)
 
-      label = label field, nil, options_label
+      label = create_label field, nil, options_label
 
       field_html = file_field field, *field_args
       hidden_field_html = hidden_field "#{field}_cache"

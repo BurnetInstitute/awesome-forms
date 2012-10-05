@@ -1,26 +1,26 @@
 PATH
   remote: .
   specs:
-    awesome-forms (0.4.0)
+    awesome-forms (0.4.1)
       jquery-rails
       rails (> 3.1.0)
 
 PATH
   remote: ../awesome-bootstrap
   specs:
-    awesome-bootstrap (0.0.1)
+    awesome-bootstrap (0.1.0)
       rails (~> 3.2.6)
 
 PATH
   remote: ../awesome-flash
   specs:
-    awesome-flash (0.1.0)
+    awesome-flash (0.1.1)
       rails (> 3.1.0)
 
 PATH
   remote: ../awesome-layout
   specs:
-    awesome-layout (0.0.1)
+    awesome-layout (0.1.0)
       rails (> 3.1.0)
 
 GEM
