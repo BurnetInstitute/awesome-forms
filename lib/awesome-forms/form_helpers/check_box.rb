@@ -11,6 +11,10 @@ module AwesomeForms
 
       # Field
       field_args = create_field_args args, options
+
+      option_checked_value ||= '1'
+      option_unchecked_value || '0'
+
       field_html = super field, *field_args, option_checked_value, option_unchecked_value
 
       # Check box fields nested inside label
@@ -23,7 +27,7 @@ module AwesomeForms
       partial = __method__
       @template.render partial: "awesome/forms/#{partial}", locals:
       {
-        label: create_label(field, options_label).to_s.html_safe,
+        label: create_label(field, nil, options_label).to_s.html_safe,
         popover: create_popover(@object_name, field).to_s.html_safe,
         field: field_html.to_s.html_safe,
         errors: get_errors(@object, field, option_hide_errors).to_s.html_safe,
