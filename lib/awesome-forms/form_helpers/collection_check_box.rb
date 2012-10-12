@@ -1,7 +1,7 @@
 module AwesomeForms
   class AwesomeFormBuilder
 
-    def collection_check_box(field, collection, label_option, *args)
+    def collection_check_box(field, collection, label_text_method, *args)
       # Field
       fields_html = ''
 
@@ -10,7 +10,7 @@ module AwesomeForms
       collection.each do |c|
         fields_html += @template.render partial: "awesome/forms/#{partial}_field", locals:
         {
-          label: create_label(field, c.send(label_option), {plain: true}).to_s.html_safe,
+          label: create_label(field, c.send(label_text_method), {plain: true}).to_s.html_safe,
           field: @template.check_box_tag("#{@object_name}[#{field.to_s}][]", c.id, @object.send('has_'+field.to_s.singularize+'?', c.id), *args).to_s.html_safe
         }
       end
