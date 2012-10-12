@@ -18,6 +18,7 @@ require 'awesome-forms/form_helpers/error'
 require 'awesome-forms/form_helpers/image_upload'
 require 'awesome-forms/form_helpers/input_list'
 require 'awesome-forms/form_helpers/label'
+require 'awesome-forms/form_helpers/upload'
 
 require 'awesome-forms/helpers/helpers'
 
