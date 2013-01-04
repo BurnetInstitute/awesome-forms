@@ -27,16 +27,18 @@ module AwesomeForms
       end
 
       content ||= if @object and @object.class.respond_to?(:human_attribute_name)
-        @object.class.human_attribute_name method
+        @object.class.human_attribute_name(method)
       end
 
       content ||= method.humanize
 
       # Sub label text
-      sub_label = I18n.t("awesome.forms.labels.#{@object_name.tableize}.#{method}", default: '').presence
-      unless sub_label.blank?
-        content += @template.render partial: 'awesome/forms/sub_label', locals: {sub_label: sub_label.to_s.html_safe}
-        content = content
+      unless method.blank?
+        sub_label = I18n.t("awesome.forms.labels.#{@object_name.tableize}.#{method}", default: '').presence
+        unless sub_label.blank?
+          content += @template.render partial: 'awesome/forms/sub_label', locals: {sub_label: sub_label.to_s.html_safe}
+          content = content
+        end
       end
 
       if option_plain.present?
