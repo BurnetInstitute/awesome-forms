@@ -1,14 +1,17 @@
 module AwesomeForms
   class AwesomeFormBuilder
-    def input_list_open(field = nil, errors_field = nil)
+    def input_list_open(field = nil, text = nil, errors_field = nil)
       errors = nil
       label = nil
       popover = nil
+      unless field.blank? and text.blank?
+        label = label field, text, nil
+      end
       unless field.blank?
         errors = get_errors @object, errors_field if errors_field
-        label = label field, nil
         popover = create_popover(@object_name, field)
       end
+
       @template.render partial: 'awesome/forms/input_list_open', locals:
         {
           label: label.to_s.html_safe,
