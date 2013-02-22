@@ -1,14 +1,14 @@
 PATH
   remote: .
   specs:
-    awesome-forms (0.4.1)
+    awesome-forms (0.5.0)
       jquery-rails
       rails (> 3.1.0)
 
 PATH
   remote: ../awesome-bootstrap
   specs:
-    awesome-bootstrap (0.1.0)
+    awesome-bootstrap (0.1.3)
       rails (~> 3.2.6)
 
 PATH
@@ -20,7 +20,7 @@ PATH
 PATH
   remote: ../awesome-layout
   specs:
-    awesome-layout (0.1.0)
+    awesome-layout (0.1.4)
       rails (> 3.1.0)
 
 GEM
@@ -59,9 +59,9 @@ GEM
     hike (1.2.1)
     i18n (0.6.0)
     journey (1.0.4)
-    jquery-rails (2.0.2)
-      railties (>= 3.2.0, < 5.0)
-      thor (~> 0.14)
+    jquery-rails (2.2.1)
+      railties (>= 3.0, < 5.0)
+      thor (>= 0.14, < 2.0)
     json (1.7.3)
     mail (2.4.4)
       i18n (>= 0.4.0)
