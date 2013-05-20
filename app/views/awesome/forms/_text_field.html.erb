@@ -1,6 +1,6 @@
-<div class="control-group<%= errors.blank? ? '' : ' error' %>"<%= popover.blank? ? '' : popover %>>
+<div class="row<%= errors.blank? ? '' : ' error' %>"<%= popover.blank? ? '' : popover %>>
   <%= label %>
-  <div class="controls">
+  <div class="col col-lg-9">
     <%= field %>
     <% if errors.present? %>
       <span class="help-inline">

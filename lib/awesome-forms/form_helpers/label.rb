@@ -6,7 +6,7 @@ module AwesomeForms
         options = {}
       end
 
-      options[:class] = 'control-label' unless options[:class] # For twitter bootstrap.
+      options[:class] = 'col col-lg-2 control-label' unless options[:class] # For twitter bootstrap.
 
       option_option = options.delete :option
       option_plain = options.delete :plain
