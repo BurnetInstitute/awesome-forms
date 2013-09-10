@@ -1,12 +1,21 @@
 module AwesomeForms
   class AwesomeFormBuilder
     def upload (field, *args)
+
       options = args.last.is_a?(Hash) ? args.pop : {} # Grab the options hash
       options_label = options.delete :label
       option_hide_errors = options.delete :hide_errors
-      option_help = options.delete :help
+      option_size = options.delete :size
 
       # Recreate the argument list with the possibly modified options hash
+      if options[:class]
+        options[:class] += ' form-control'
+      else
+        options[:class] = 'form-control'
+      end
+
+      option_size = 'col-lg-10' if ! option_size
+
       field_args = Array[options] if args.blank?
       field_args = args if args.present?
       if args and options
@@ -16,12 +25,17 @@ module AwesomeForms
       object_class = @object.class.name.constantize
       asset_base = object_class.new.respond_to?(:asset_base) ? object_class.new.asset_base : nil
 
+      if @object.send "#{field}?"
+        file_name = @object.send(field).file.filename
+        file_url = @object.send(field).url
+      else
+        file_name =''
+        file_url = ''
+      end
+
       label = create_label field, nil, options_label
 
       field_html = file_field field, *field_args
-
-      # Help text
-      help = I18n.t("awesome.forms.help.#{@object_name}.#{field}", default: '').presence
 
       # Popovers
       popover = nil
@@ -38,9 +52,12 @@ module AwesomeForms
       {
         label: label.to_s.html_safe,
         popover: popover.to_s.html_safe,
+        file_name: file_name.html_safe,
+        file_url: file_url.html_safe,
+        size: option_size,
         field: field_html.to_s.html_safe,
         errors: errors.to_s.html_safe,
-        help: help.to_s.html_safe
+        help: get_help_text(@object_name, field).to_s.html_safe
       }
     end
   end

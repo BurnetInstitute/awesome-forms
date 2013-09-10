@@ -6,7 +6,11 @@ module AwesomeForms
         options = {}
       end
 
-      options[:class] = 'col col-lg-2 control-label' unless options[:class] # For twitter bootstrap.
+      if options[:class]
+        options[:class] += ' control-label'
+      else
+        options[:class] = 'col-lg-2 control-label'
+      end
 
       option_option = options.delete :option
       option_plain = options.delete :plain
@@ -18,9 +22,9 @@ module AwesomeForms
       # We still want to provide the text via I18n and keep expected label behaviour.
       content = if text.blank?
         if option_option.present?
-          I18n.t("awesome.forms.options.#{method.to_s.tableize}.#{option_option}", :default => '').presence
+          I18n.t("awesome.forms.options.#{method}.#{option_option}", :default => '').presence
         else
-          I18n.t("helpers.label.#{@object_name.tableize}.#{method}", :default => '').presence
+          I18n.t("helpers.label.#{@object_name}.#{method}", :default => '').presence
         end
       else
         content = text.to_s
@@ -30,11 +34,11 @@ module AwesomeForms
         @object.class.human_attribute_name(method)
       end
 
-      content ||= method.humanize
+      content ||= method.to_s.humanize
 
       # Sub label text
       unless method.blank?
-        sub_label = I18n.t("awesome.forms.labels.#{@object_name.tableize}.#{method}", default: '').presence
+        sub_label = I18n.t("awesome.forms.labels.#{@object_name}.#{method}", default: '').presence
         unless sub_label.blank?
           content += @template.render partial: 'awesome/forms/sub_label', locals: {sub_label: sub_label.to_s.html_safe}
           content = content

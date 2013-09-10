@@ -1,5 +1,8 @@
 module AwesomeForms
   class AwesomeFormBuilder
+
+    # TODO: Use popover helper
+
     def image_upload (field, version = :thumbnail, *args)
       options = args.last.is_a?(Hash) ? args.pop : {} # Grab the options hash
       options_label = options.delete :label
@@ -7,6 +10,11 @@ module AwesomeForms
       option_help = options.delete :help
 
       # Recreate the argument list with the possibly modified options hash
+      if options[:class]
+        options[:class] += ' input-with-feedback'
+      else
+        options[:class] = 'input-with-feedback'
+      end
       field_args = Array[options] if args.blank?
       field_args = args if args.present?
       if args and options

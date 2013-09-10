@@ -24,15 +24,15 @@ module AwesomeForms
 
       # Get help text from i18n
       def get_help_text(object_name, field)
-        I18n.t("awesome.forms.help.#{object_name.tableize}.#{field}", default: '')
+        I18n.t("awesome.forms.help.#{object_name}.#{field}", default: '')
       end
 
       # Create popoever from i18n
       def create_popover(object_name, field)
         popover = ''
         popover_default_title = I18n.t("activemodel.attributes.#{object_name}.#{field}", default: "activerecord.attributes.#{object_name}.#{field}")
-        popover_data_original_title = I18n.t("awesome.forms.popovers.#{object_name.tableize}.#{field}.title", default: popover_default_title).presence
-        popover_data_content = I18n.t("awesome.forms.popovers.#{object_name.tableize}.#{field}.content", default: '').presence
+        popover_data_original_title = I18n.t("awesome.forms.popovers.#{object_name}.#{field}.title", default: popover_default_title).presence
+        popover_data_content = I18n.t("awesome.forms.popovers.#{object_name}.#{field}.content", default: '').presence
         unless popover_data_content.blank?
             popover = "rel=\"popover\" data-original-title=\"#{popover_data_original_title}\" data-content=\"#{popover_data_content}\""
         end
