@@ -1,10 +1,10 @@
 module AwesomeForms
   class AwesomeFormBuilder
     def link_to_remove_fields(name, options = {})
-      if options[:class]
-        options[:class] += ' awesome_forms_remove_fields'
+      if options[:data]
+        options[:data].merge!({toggle: 'remove-fields'})
       else
-        options.merge!({class: 'awesome_forms_remove_fields'})
+        options.merge!(data: {toggle: 'remove-fields'})
       end
       hidden_field(:_destroy) + @template.link_to(name.html_safe, '#', options)
     end
@@ -17,16 +17,10 @@ module AwesomeForms
         @template.render partial: partial, locals: locals
       end
 
-      if options[:class]
-        options[:class] += ' awesome_forms_add_fields'
-      else
-        options.merge!({class: 'awesome_forms_add_fields'})
-      end
-
       if options[:data]
-        options[:data].merge!({id: new_association_object_id, fields: fields.gsub("\n", "")})
+        options[:data].merge!({id: new_association_object_id, fields: fields.gsub("\n", ""), toggle: 'add-fields'})
       else
-        options.merge!(data: {id: new_association_object_id, fields: fields.gsub("\n", "")})
+        options.merge!(data: {id: new_association_object_id, fields: fields.gsub("\n", ""), toggle: 'add-fields'})
       end
 
       @template.link_to name.html_safe, '#', options
