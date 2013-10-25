@@ -1,17 +1,38 @@
 module AwesomeForms
   class AwesomeFormBuilder
     def link_to_remove_fields(name, options = {})
-      hidden_field(:_destroy) + @template.link_to_function(name, "awesome_forms_remove_fields(this)", options)
+      if options[:data]
+        options[:data].merge!({toggle: 'remove-fields'})
+      else
+        options.merge!(data: {toggle: 'remove-fields'})
+      end
+      hidden_field(:_destroy) + @template.link_to(name.html_safe, '#', options)
     end
 
-    def link_to_add_fields(name, association, association_object, partial, locals = {}, options = {})
-      fields = fields_for association, association_object, child_index: "new_#{association}" do |form|
+    def link_to_add_fields(name, association, partial, locals = {}, options = {})
+      new_association_object = object.send(association).klass.new
+      new_association_object_id = new_association_object.object_id
+      fields = fields_for association, new_association_object, child_index: new_association_object_id do |form|
         locals.merge!({form: form})
         @template.render partial: partial, locals: locals
       end
-      link = @template.link_to_function name.html_safe, "awesome_forms_add_fields(this, \"#{association}\", \"#{@template.escape_javascript(fields)}\")", options
-      link = '<div class="awesome-forms-group">' + link + '</div>'
-      link.html_safe
+
+      if options[:data]
+        options[:data].merge!({id: new_association_object_id, fields: fields.gsub("\n", ""), toggle: 'add-fields'})
+      else
+        options.merge!(data: {id: new_association_object_id, fields: fields.gsub("\n", ""), toggle: 'add-fields'})
+      end
+
+      @template.link_to name.html_safe, '#', options
     end
   end
+
+  # def link_to_add_fields(name, f, association)
+  #   new_object = f.object.send(association).klass.new
+  #   id = new_object.object_id
+  #   fields = f.fields_for(association, new_object, child_index: id) do |builder|
+  #     render(association.to_s.singularize + "_fields", f: builder)
+  #   end
+  #   link_to(name, '#', class: "add_fields", data: {id: id, fields: fields.gsub("\n", "")})
+  # end
 end

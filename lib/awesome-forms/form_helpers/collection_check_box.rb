@@ -1,6 +1,8 @@
 module AwesomeForms
   class AwesomeFormBuilder
 
+    #TODO: Add input-with-feedback?
+
     def collection_check_box(field, collection, label_text_method, value_method, *args)
       label_text_method_array = label_text_method.split '.'
       value_method_array = value_method.split '.'
@@ -21,7 +23,8 @@ module AwesomeForms
       end
       @template.render partial: "awesome/forms/#{partial}", locals:
       {
-        fields: fields_html.to_s.html_safe
+        # Inlcude a default hidden field with nothing selected as unchecked boxes aren't passed in submit.
+        fields: @template.hidden_field_tag("#{@object_name}[#{field.to_s}][]", '') + fields_html.to_s.html_safe
       }
     end
 

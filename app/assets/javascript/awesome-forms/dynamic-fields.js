@@ -1,11 +1,12 @@
-// TODO: We don't wrap fields in a fields class so need to work out another way. Maybe the number of fields to hide?
-function awesome_forms_remove_fields(link) {
-  $(link).prev("input[type=hidden]").val("1");
-  $(link).closest(".awesome-forms-group").hide();
-}
+$(document).on('click', 'form [data-toggle=remove-fields]', function(e) {
+  $(this).prev("input[type=hidden]").val("1");
+  $(this).closest("fieldset").hide();
+  e.preventDefault()
+});
 
-function awesome_forms_add_fields(link, association, content) {
+$(document).on('click', 'form [data-toggle=add-fields]', function(e) {
   var new_id = new Date().getTime();
-  var regexp = new RegExp("new_" + association, "g")
-  $(link).before(content.replace(regexp, new_id));
-}
+  var regexp = new RegExp($(this).data('id'), "g")
+  $(this).before($(this).data('fields').replace(regexp, new_id))
+  e.preventDefault()
+});

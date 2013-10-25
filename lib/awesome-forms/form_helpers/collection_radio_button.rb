@@ -1,6 +1,8 @@
 module AwesomeForms
   class AwesomeFormBuilder
 
+    # TODO: Add field with feedback
+
     def collection_radio_button(field, collection, label_text_method, *args)
       # Field
       fields_html = ''
