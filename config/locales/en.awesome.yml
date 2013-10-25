@@ -1,0 +1,20 @@
+en:
+  awesome:
+    flash:
+      controller:
+        controller_name:
+          create:
+            success:
+              header: ''
+              body: ''
+          update:
+            success:
+              header: ''
+              body: ''
+    forms:
+      errors:
+        header: "Oops, it looks like there's someting wrong."
+        body: 'Please correct the fields below before continuing.'
+      labels:
+        model_name:
+          attribute_name: ''

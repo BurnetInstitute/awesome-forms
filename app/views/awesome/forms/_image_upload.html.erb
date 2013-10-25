@@ -1,20 +1,18 @@
-<div class="control-group<%= errors.blank? ? '' : ' has-error' %>"<%= popover.blank? ? '' : popover %>>
-  <p class="controls">
+<div class="form-group<%= errors.blank? ? '' : ' has-error' %>"<%= popover.blank? ? '' : popover %>>
+  <p class="col-lg-offset-2 col-lg-10">
     <%= image %>
   </p>
   <%= label %>
-  <div class="controls">
+  <%= size.blank? ? '' : ('<div class="'+size+'">').html_safe %>
     <%= field %>
-    <%= hidden_field %>
-    <% if errors.present? %>
-      <span class="help-inline">
-        <%= errors %>
-      </span>
-    <% end %>
+  <%= size.blank? ? '' : '</div>'.html_safe %>
+  <%= '<span class="help-block">'.html_safe if help.present? or errors.present? %>
     <% if help.present? %>
-      <span class="help-block">
-        <%= help %>
-      </span>
+      <%= help %>
     <% end %>
-  </div>
+    <%= '<br />'.html_safe if help.present? and errors.present? %>
+    <% if errors.present? %>
+        <%= errors %>
+    <% end %>
+  <%= '</span>'.html_safe if help.present? or errors.present? %>
 </div>

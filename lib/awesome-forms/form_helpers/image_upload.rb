@@ -8,19 +8,19 @@ module AwesomeForms
       options_label = options.delete :label
       option_hide_errors = options.delete :hide_errors
       option_help = options.delete :help
+      option_size = options.delete :size
 
-      # Recreate the argument list with the possibly modified options hash
+      # Field
       if options[:class]
-        options[:class] += ' input-with-feedback'
+        options[:class] += ' form-control'
       else
-        options[:class] = 'input-with-feedback'
+        options[:class] = 'form-control'
       end
-      field_args = Array[options] if args.blank?
-      field_args = args if args.present?
-      if args and options
-        field_args = args
-        field_args << options
-      end
+
+      option_size = 'col-lg-10' if ! option_size
+
+      field_args = create_field_args args, options
+
       object_class = @object.class.name.constantize
       asset_base = object_class.new.respond_to?(:asset_base) ? object_class.new.asset_base : nil
 
@@ -49,6 +49,7 @@ module AwesomeForms
       {
         label: label.to_s.html_safe,
         popover: popover.to_s.html_safe,
+        size: option_size,
         image: image.to_s.html_safe,
         field: field_html.to_s.html_safe,
         hidden_field: hidden_field_html.to_s.html_safe,
