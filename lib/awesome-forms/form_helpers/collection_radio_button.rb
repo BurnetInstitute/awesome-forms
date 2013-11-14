@@ -3,17 +3,22 @@ module AwesomeForms
 
     # TODO: Add field with feedback
 
-    def collection_radio_button(field, collection, label_text_method, *args)
+     def collection_radio_button(field, collection, label_text_method, value_method, *args)
+      label_text_method_array = label_text_method.split '.'
+      value_method_array = value_method.split '.'
+
       # Field
       fields_html = ''
 
       partial = __method__
 
       collection.each do |c|
+        label_text = label_text_method_array.inject(c) {|result, method| result.send method}
+        value = value_method_array.inject(c) {|result, method| result.send method}
         fields_html += @template.render partial: "awesome/forms/#{partial}_field", locals:
         {
-          label: create_label(field, c.send(label_text_method), {plain: true}).to_s.html_safe,
-          field: @template.radio_button_tag("#{@object_name}[#{field.to_s}][]", c.id, @object.send('has_'+field.to_s.singularize+'?', c.id), *args).to_s.html_safe
+          label: create_label(field, label_text, {plain: true}).to_s.html_safe,
+          field: @template.radio_button_tag("#{@object_name}[#{field.to_s}][]", value, @object.send('has_'+field.to_s.singularize+'?', value), *args).to_s.html_safe
         }
       end
       @template.render partial: "awesome/forms/#{partial}", locals:
